@@ -19,6 +19,7 @@ import employeesmanagement.employeesmanagement.domain.usecase.impl.AddNewEmploye
 import employeesmanagement.presentation.EmployeeManager
 import employeesmanagement.util.orZero
 import employeesmanagement.util.toCurrency
+import java.lang.Exception
 
 class ManagerApplication {
     private val local = EmployeeLocalDataSourceImpl(LocalStore())
@@ -95,9 +96,11 @@ class ManagerApplication {
         println("Ingrese el nombre: ")
         val name = readlnOrNull().orEmpty()
         println("Ingrese la edad: ")
-        val age = readlnOrNull()?.toInt().orZero()
+
+        val age = readPositiveIntNumberInput()
+
         println("Ingrese el salario: ")
-        val salary = readlnOrNull()?.toInt().orZero().toCurrency()
+        val salary = readPositiveIntNumberInput().toCurrency()
         println("Ingrese el email: ")
         val email = readlnOrNull().orEmpty()
 
@@ -127,6 +130,22 @@ class ManagerApplication {
     private fun printEmployeesList(message: String) {
         println("$message:")
         employeeManager.showEmployeesList()
+    }
+
+    private fun readPositiveIntNumberInput(): Int {
+        var inputIsNotInt = true
+        var positiveNumber: Int = -1
+        while (inputIsNotInt) {
+            val ageText: String? = readlnOrNull()
+             positiveNumber = try {
+                ageText?.toInt().orZero()
+            } catch (exception: Exception) {
+                println("El campo ingresado debe ser un número entero. Por favor, intente nuevamente.")
+                 -1
+            }
+            if (positiveNumber > -1) inputIsNotInt = false
+        }
+        return positiveNumber
     }
 
     enum class ActionType(val title: String? = null) {
