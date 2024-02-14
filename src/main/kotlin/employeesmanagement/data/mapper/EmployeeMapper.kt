@@ -26,12 +26,12 @@ fun RandomUsersResultDto?.toDomainModel(): List<Employee> {
     val employees = arrayListOf<Employee>()
     randomUsers?.forEach { randomUser ->
         randomUser.let {
-            val salary = Random().nextInt(1000, 20000000)
+            val salaryRange = (1000..1000000)
             employees.add(
                 Employee(
                     id = UUID.randomUUID().toString(),
-                    name = "${it.name?.first.orEmpty()} + ${it.name?.last.orEmpty()}",
-                    salary = salary.toCurrency(),
+                    name = "${it.name?.first.orEmpty()} ${it.name?.last.orEmpty()}",
+                    salary = salaryRange.random().toCurrency(),
                     age = it.dob.age.orZero(),
                     email = it.email.orEmpty()
                 )
