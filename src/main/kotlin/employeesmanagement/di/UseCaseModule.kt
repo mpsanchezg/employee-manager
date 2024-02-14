@@ -1,7 +1,5 @@
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 import employeesmanagement.domain.repository.EmployeeRepository
 import employeesmanagement.domain.usecase.DeleteEmployeesUseCase
 import employeesmanagement.domain.usecase.GetEmployeesUseCase
@@ -11,7 +9,6 @@ import employeesmanagement.domain.usecase.impl.PopulateEmployeesUseCaseImpl
 import javax.inject.Singleton
 
 @Module(includes = [RepositoryModule::class])
-@InstallIn(SingletonComponent::class)
 class UseCaseModule {
     @Provides
     @Singleton
