@@ -5,6 +5,7 @@ import employeesmanagement.domain.model.Employee
 import employeesmanagement.domain.usecase.DeleteEmployeesUseCase
 import employeesmanagement.domain.usecase.GetEmployeesUseCase
 import employeesmanagement.domain.usecase.PopulateEmployeesUseCase
+import employeesmanagement.employeesmanagement.domain.usecase.AddNewEmployeeUseCase
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -13,7 +14,8 @@ import kotlinx.coroutines.runBlocking
 class EmployeeManager @Inject constructor(
     private val populateEmployeesUseCase: PopulateEmployeesUseCase,
     private val getEmployeesUseCase: GetEmployeesUseCase,
-    private val deleteEmployeesUseCase: DeleteEmployeesUseCase
+    private val deleteEmployeesUseCase: DeleteEmployeesUseCase,
+    private val addNewEmployeeUseCase: AddNewEmployeeUseCase
 ){
     private val employeeList = arrayListOf<Employee>()
     init { populateEmployees() }
@@ -29,18 +31,25 @@ class EmployeeManager @Inject constructor(
         }
     }
 
+    fun addNewEmployee(employee: Employee) {
+        if (addNewEmployeeUseCase(employee)) {
+            println("Empleado agregado con éxito")
+        } else {
+            println("Hubo un error, intente más tarde.")
+        }
+    }
+
     fun removeEmployees(name: String) {
         if (deleteEmployeesUseCase.byName(name)) {
-            print("Empleado borrado con éxito")
+            println("Empleado borrado con éxito")
         } else {
             println("Lo sentimos, no pudimos borrar el empleado. Intente nuevamente")
         }
-
     }
 
     fun removeEmployee(id: String) {
         if (deleteEmployeesUseCase.byId(id)) {
-            print("Empleado borrado con éxito")
+            println("Empleado borrado con éxito")
         } else {
             println("Lo sentimos, no pudimos borrar el empleado. Intente nuevamente")
         }
