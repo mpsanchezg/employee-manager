@@ -10,7 +10,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-@Component
 class EmployeeManager @Inject constructor(
     private val populateEmployeesUseCase: PopulateEmployeesUseCase,
     private val getEmployeesUseCase: GetEmployeesUseCase,
@@ -26,7 +25,7 @@ class EmployeeManager @Inject constructor(
         println("Lista de Empleados:")
         var index = 1
         employeeList.forEach {
-            print("$index ${it.name}")
+            println("$index ${it.name}")
             index += 1
         }
     }
