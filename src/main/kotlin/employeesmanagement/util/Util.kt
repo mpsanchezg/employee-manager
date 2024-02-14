@@ -2,6 +2,7 @@ package employeesmanagement.util
 
 import java.text.NumberFormat
 import java.util.Currency
+import java.util.UUID
 
 fun Int.toCurrency(): String {
   val format = NumberFormat.getCurrencyInstance()
@@ -12,3 +13,7 @@ fun Int.toCurrency(): String {
 }
 
 fun Int?.orZero() = this ?: 0
+
+fun randomString(): String {
+  return UUID.randomUUID().toString()
+}

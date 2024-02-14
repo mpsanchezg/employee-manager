@@ -9,8 +9,8 @@ import employeesmanagement.domain.model.DomainError
 import employeesmanagement.domain.model.DomainErrorType
 import employeesmanagement.domain.model.Employee
 import employeesmanagement.util.orZero
+import employeesmanagement.util.randomString
 import employeesmanagement.util.toCurrency
-import java.util.*
 
 fun RemoteError.toDomainError(): DomainError {
     return when (this) {
@@ -29,7 +29,7 @@ fun RandomUsersResultDto?.toDomainModel(): List<Employee> {
             val salaryRange = (1000..1000000)
             employees.add(
                 Employee(
-                    id = UUID.randomUUID().toString(),
+                    id = randomString(),
                     name = "${it.name?.first.orEmpty()} ${it.name?.last.orEmpty()}",
                     salary = salaryRange.random().toCurrency(),
                     age = it.dob.age.orZero(),
